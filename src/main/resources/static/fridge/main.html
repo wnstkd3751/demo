@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>냉비 - 냉장고 레시피 앱</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      background:#f5f6f8;
+      font-family: 'Pretendard', sans-serif;
+    }
+    .top-header {
+      background: linear-gradient(135deg,#43c6ac,#3aa0ff);
+      color:white;
+      border-bottom-left-radius:20px;
+      border-bottom-right-radius:20px;
+      padding:20px;
+    }
+    .scan-btn {
+      width:120px;
+      height:120px;
+      border-radius:50%;
+      background:#ff6b6b;
+      color:white;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      font-weight:600;
+      box-shadow:0 6px 16px rgba(0,0,0,0.15);
+    }
+    .card-round {
+      border-radius:18px;
+      border:none;
+      box-shadow:0 4px 12px rgba(0,0,0,0.06);
+    }
+    .badge-soft {
+      background:#e8f7ef;
+      color:#1c9c63;
+      border-radius:999px;
+      padding:6px 12px;
+      font-size:12px;
+    }
+    .recipe-img {
+      height:160px;
+      object-fit:cover;
+      border-top-left-radius:18px;
+      border-top-right-radius:18px;
+    }
+    .floating-btn {
+      position:fixed;
+      bottom:20px;
+      right:20px;
+      width:56px;
+      height:56px;
+      border-radius:50%;
+      background:#ff6b6b;
+      color:white;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:22px;
+      box-shadow:0 6px 16px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+<!-- 헤더 -->
+<div class="top-header">
+  <div class="d-flex justify-content-between align-items-center">
+    <div>
+      <div class="small">안녕하세요</div>
+      <h5 class="mb-0">사용자님</h5>
+    </div>
+    <div class="position-relative">
+      <i class="bi bi-bell fs-4"></i>
+      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">4</span>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-4">
+
+  <!-- 스캔 영역 -->
+  <div class="text-center mb-3">
+    <div class="scan-btn mx-auto">
+      <i class="bi bi-camera fs-3"></i>
+      스캔
+    </div>
+    <div class="small text-muted mt-2">탭하여 영수증 촬영</div>
+  </div>
+
+  <!-- 유통기한 알림 -->
+  <div class="card card-round p-3 mb-4">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <i class="bi bi-bag text-warning"></i>
+        당근 외 3개
+        <div class="text-danger small">유통기한 3일 이내!</div>
+      </div>
+      <button class="btn btn-sm btn-outline-danger">레시피 보기</button>
+    </div>
+  </div>
+
+  <!-- 내 냉장고 -->
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <h6 class="mb-0">내 냉장고</h6>
+    <small class="text-muted">유통기한순</small>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-6">
+      <div class="card card-round p-3">
+        <img src="https://images.unsplash.com/photo-1604908176997-431eac5a2b0c" class="img-fluid rounded mb-2">
+        <div class="fw-semibold">돼지고기</div>
+        <small class="text-muted">300g · D-1</small>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="card card-round p-3">
+        <img src="https://images.unsplash.com/photo-1447175008436-1701707530a0" class="img-fluid rounded mb-2">
+        <div class="fw-semibold">당근</div>
+        <small class="text-muted">3개 · D-2</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- 추천 레시피 -->
+  <div class="d-flex justify-content-between align-items-center mt-5 mb-2">
+    <h6 class="mb-0">추천 레시피</h6>
+    <a href="#" class="text-danger small">전체보기</a>
+  </div>
+
+  <div class="card card-round mb-4">
+    <img src="https://images.unsplash.com/photo-1604909053197-8f6b25143ed3" class="recipe-img w-100">
+    <div class="p-3">
+      <span class="badge bg-danger mb-2">빨리 소진</span>
+      <h6>돼지고기 김치찌개</h6>
+      <div class="d-flex gap-3 small text-muted">
+        <span><i class="bi bi-bar-chart"></i> 쉬움</span>
+        <span><i class="bi bi-clock"></i> 30분</span>
+        <span><i class="bi bi-fire"></i> 350kcal</span>
+      </div>
+      <div class="progress mt-2" style="height:6px">
+        <div class="progress-bar" style="width:60%"></div>
+      </div>
+      <small class="text-success">재료 3/5개 보유</small>
+    </div>
+  </div>
+
+</div>
+
+<!-- 플로팅 버튼 -->
+<div class="floating-btn">
+  <i class="bi bi-chat-dots"></i>
+</div>
+
+<!-- 식재료 추가 모달 -->
+<div class="modal fade" id="addModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title">식재료 추가</h6>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-2">
+          <label class="form-label">식재료 이름</label>
+          <input class="form-control" placeholder="예: 양파, 당근, 우유">
+        </div>
+        <div class="mb-2">
+          <label class="form-label">수량</label>
+          <input class="form-control" placeholder="예: 1개, 500g">
+        </div>
+        <div class="mb-2">
+          <label class="form-label">유통기한</label>
+          <input type="date" class="form-control">
+        </div>
+        <div class="d-grid">
+          <button class="btn btn-danger">추가하기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<!-- ================= 레시피 상세 화면 ================= -->
+<div class="container mt-5 mb-5">
+  <div class="card card-round overflow-hidden">
+    <img src="https://images.unsplash.com/photo-1604908177522-040f3a1b7c2b" class="w-100" style="height:220px;object-fit:cover;">
+    <div class="p-3">
+      <h5 class="fw-bold">두부조림</h5>
+
+      <div class="row text-center mt-3 g-2">
+        <div class="col-4">
+          <div class="card card-round p-2">
+            <i class="bi bi-bar-chart text-danger"></i>
+            <div class="small">보통</div>
+            <div class="text-muted small">난이도</div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="card card-round p-2">
+            <i class="bi bi-clock text-danger"></i>
+            <div class="small">25분</div>
+            <div class="text-muted small">조리시간</div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="card card-round p-2">
+            <i class="bi bi-fire text-danger"></i>
+            <div class="small">200kcal</div>
+            <div class="text-muted small">칼로리</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 보유 재료 -->
+      <div class="mt-4">
+        <h6>보유 재료</h6>
+        <span class="badge-soft me-1">두부</span>
+        <span class="badge-soft me-1">대파</span>
+        <span class="badge-soft me-1">양파</span>
+      </div>
+
+      <!-- 필요 재료 -->
+      <div class="mt-3">
+        <h6>필요 재료</h6>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">간장</li>
+          <li class="list-group-item d-flex justify-content-between">
+            고추가루
+            <small class="text-success">대체 가능</small>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 조리 순서 -->
+      <div class="mt-4">
+        <h6>조리 순서</h6>
+        <ol class="list-group list-group-numbered">
+          <li class="list-group-item">두부를 도톰하게 썰어 팬에 노릇하게 굽습니다.</li>
+          <li class="list-group-item">양념장을 만들어 준비합니다.</li>
+          <li class="list-group-item">구운 두부 위에 양념장을 끼얹습니다.</li>
+          <li class="list-group-item">대파를 올려 마무리합니다.</li>
+        </ol>
+      </div>
+
+      <!-- 영양 정보 -->
+      <div class="row mt-4 g-2 text-center">
+        <div class="col-4">
+          <div class="card card-round p-2">
+            <div class="fw-bold text-danger">12g</div>
+            <small class="text-muted">단백질</small>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="card card-round p-2">
+            <div class="fw-bold text-danger">8g</div>
+            <small class="text-muted">탄수화물</small>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="card card-round p-2">
+            <div class="fw-bold text-danger">10g</div>
+            <small class="text-muted">지방</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-grid mt-4">
+        <button class="btn btn-danger btn-lg">요리 시작</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ================= OCR 영수증 스캔 결과 화면 ================= -->
+<div class="container mt-5 mb-5">
+  <div class="card card-round p-3">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h5 class="fw-bold mb-0">영수증 스캔 결과</h5>
+      <span class="badge bg-success">OCR 완료</span>
+    </div>
+    <p class="text-muted small mb-3">인식된 식재료를 확인하고 냉장고에 추가하세요</p>
+
+    <!-- 스캔 미리보기 -->
+    <div class="card card-round mb-3 overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1556742031-c6961e8560b0" class="w-100" style="height:180px;object-fit:cover;">
+      <div class="p-2 small text-muted">스캔된 영수증 이미지</div>
+    </div>
+
+    <!-- 인식된 품목 리스트 -->
+    <h6 class="mb-2">인식된 품목</h6>
+    <div class="list-group mb-3">
+      <label class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <input class="form-check-input me-2" type="checkbox" checked>
+          양파
+          <div class="small text-muted">2개 · 채소</div>
+        </div>
+        <span class="badge bg-light text-dark">수정가능</span>
+      </label>
+
+      <label class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <input class="form-check-input me-2" type="checkbox" checked>
+          감자
+          <div class="small text-muted">5개 · 채소</div>
+        </div>
+        <span class="badge bg-light text-dark">수정가능</span>
+      </label>
+
+      <label class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <input class="form-check-input me-2" type="checkbox">
+          초콜릿
+          <div class="small text-muted">가공식품 · 제외됨</div>
+        </div>
+        <span class="badge bg-warning text-dark">자동 제외</span>
+      </label>
+    </div>
+
+    <!-- 일괄 옵션 -->
+    <div class="card card-round p-3 mb-3">
+      <h6 class="mb-2">일괄 설정</h6>
+      <div class="row g-2">
+        <div class="col-6">
+          <label class="form-label small">기본 보관</label>
+          <select class="form-select">
+            <option>냉장</option>
+            <option>냉동</option>
+            <option>실온</option>
+          </select>
+        </div>
+        <div class="col-6">
+          <label class="form-label small">기본 유통기한</label>
+          <select class="form-select">
+            <option>3일</option>
+            <option>5일</option>
+            <option>7일</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- 경고 박스 -->
+    <div class="alert alert-warning small">
+      일부 품목은 식재료가 아니어서 자동 제외되었습니다. 필요하면 체크하여 추가하세요.
+    </div>
+
+    <!-- 액션 버튼 -->
+    <div class="d-grid gap-2">
+      <button class="btn btn-danger btn-lg">선택 항목 냉장고에 추가</button>
+      <button class="btn btn-outline-secondary">다시 스캔</button>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
