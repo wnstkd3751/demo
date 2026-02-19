@@ -1,16 +1,19 @@
 #!/bin/bash
+set -e
 
 echo "JAVA VERSION:"
 java -version
 
 echo "Starting EurekaServer..."
-cd EurekaServer && ./gradlew bootRun &
+(cd EurekaServer && chmod +x gradlew && ./gradlew bootRun) &
 
 echo "Starting ApiGateWay..."
-cd ../ApiGateWay && ./gradlew bootRun &
+(cd ApiGateWay && chmod +x gradlew && ./gradlew bootRun) &
 
 echo "Starting UserService..."
-cd ../UserService && ./gradlew bootRun &
+(cd UserService && chmod +x gradlew && ./gradlew bootRun) &
 
 echo "Starting StorageService..."
-cd ../StorageService && ./gradlew bootRun &
+(cd StorageService && chmod +x gradlew && ./gradlew bootRun) &
+
+wait
