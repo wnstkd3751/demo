@@ -1,7 +1,5 @@
 {
   "name": "msa-dev",
-  "containerEnv": {
-    "JAVA_HOME": "/usr/lib/jvm/temurin-17-jdk-amd64"
-  },
-  "postStartCommand": "cd EurekaServer && ./gradlew bootRun & cd ../ApiGateWay && ./gradlew bootRun & cd ../UserService && ./gradlew bootRun & cd ../StorageService && ./gradlew bootRun"
+  "image": "mcr.microsoft.com/devcontainers/java:1-17-bullseye",
+  "postStartCommand": "bash .devcontainer/start.sh"
 }
