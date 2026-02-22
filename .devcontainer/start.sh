@@ -4,6 +4,9 @@ set -e
 echo "JAVA VERSION:"
 java -version
 
+echo "Starting SpringConfigServer..."
+(cd SpringConfigServer && chmod +x gradlew && ./gradlew bootRun) &
+
 echo "Starting EurekaServer..."
 (cd EurekaServer && chmod +x gradlew && ./gradlew bootRun) &
 
@@ -15,5 +18,6 @@ echo "Starting UserService..."
 
 echo "Starting StorageService..."
 (cd StorageService && chmod +x gradlew && ./gradlew bootRun) &
+
 
 wait

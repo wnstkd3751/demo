@@ -1,5 +1,8 @@
 {
   "name": "msa-dev",
   "image": "mcr.microsoft.com/devcontainers/java:1-17-bullseye",
+  "containerEnv": {
+    "MONGODB_URI": "mongodb+srv://USERNAME:PASSWORD@cluster0.stk2lp3.mongodb.net/yourdbname?retryWrites=true&w=majority"
+  },
   "postStartCommand": "bash .devcontainer/start.sh"
 }
