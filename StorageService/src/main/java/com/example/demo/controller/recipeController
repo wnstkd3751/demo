@@ -1,0 +1,27 @@
+@RestController
+public class recipeController {
+
+    @Autowired
+    private RecipeRepository recipeRepository;
+
+    @GetMapping("/save")
+    public ChattingContent test(@RequestParam("name") String name, @RequestParam("age") Long age) {
+
+        
+
+        // RecipeEntity recipe = RecipeEntity.builder()
+        // .name("김치찌개")
+        // .difficulty("EASY")
+        // .cookTime("30")
+        // .calorie("500")
+        // .protein("25")
+        // .fat("20")
+        // .sodium("800")
+        // .integredientVector("0.12,0.55,0.87...")
+        // .cachedAt("2026-02-27")
+        // .build();
+
+        // return recipeRepository.save(recipe);
+        return new RecipeEntity
+    }
+}
